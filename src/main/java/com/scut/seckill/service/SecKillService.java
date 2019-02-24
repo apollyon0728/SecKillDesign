@@ -126,7 +126,9 @@ public class SecKillService {
 
         long addResult = jedis.sadd(hasBoughtSetKey,user.getId().toString());
         if (addResult > 0){
-            log.info(record.toString());
+            if (record != null) {
+                log.info(record.toString());
+            }
             boolean insertFlag = secKillMapper.insertRecord(record);
             if (insertFlag){
                 log.info("用户:"+user.getUsername()+"秒杀商品"+product.getProductName()+"成功!");

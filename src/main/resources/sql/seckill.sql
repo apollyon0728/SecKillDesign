@@ -9,13 +9,18 @@ CREATE TABLE user(
 );
 
 DROP TABLE IF EXISTS product;
-CREATE TABLE product(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY comment "ID",
-    productName VARCHAR (20) UNIQUE NOT NULL comment "产品名称",
-    price DECIMAL(16,3) NOT NULL comment "价格",
-    stock INT NOT NULL comment "库存",
-    createTime DATE NOT NULL comment "创建时间"
-);
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `productName` varchar(20) NOT NULL COMMENT '产品名称',
+  `price` decimal(16,3) NOT NULL COMMENT '价格',
+  `stock` int(11) NOT NULL COMMENT '库存',
+  `createTime` date NOT NULL COMMENT '创建时间',
+  `version` int(12) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `productName` (`productName`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
 
 DROP TABLE IF EXISTS record;
 CREATE TABLE record(

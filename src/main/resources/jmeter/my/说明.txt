@@ -1,0 +1,20 @@
+GIT秒杀系统。 自己搭建遇到一些问题
+
+	1.
+在使用Jmeter测试时总是报错，可能git上版本与自己下载的版本不符，并且git自带的jmeter不好使，报错。
+
+
+
+自己测试时 jmeter 版本为： 5.1r
+
+下载地址 ： http://jmeter.apache.org/download_jmeter.cgi
+
+	1.
+jmeter 新建各功能节点，貌似按照顺序执行，报错后新建了“HTTP信息头管理器”，添加了http协议内容 Content-Type  application/json
+
+
+
+
+
+jmeter  使用方式参考：
+https://blog.csdn.net/github_36032947/article/details/78299020
