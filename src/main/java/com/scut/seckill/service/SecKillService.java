@@ -43,6 +43,8 @@ public class SecKillService {
      * 利用MySQL的update行锁实现悲观锁
      * @param paramMap
      * @return
+     *
+     * @Modify : MY productName也可以缓存起来
      */
     @Transactional
     public SecKillEnum handleByPessLockInMySQL(Map<String, Object> paramMap) {
@@ -56,8 +58,9 @@ public class SecKillService {
 
         String hasBoughtSetKey = SecKillUtils.getRedisHasBoughtSetKey(product.getProductName());
         //判断是否重复购买
-        boolean isBuy = jedis.sismember(hasBoughtSetKey, user.getId().toString());
+        boolean isBuy = jedis.sismember(hasBoughtSetKey, user.getId().toString()); // 查询
         if (isBuy){
+            // TODO MY: productName也可以缓存起来
             log.error("用户:"+user.getUsername()+"重复购买商品"+product.getProductName());
             throw new SecKillException(SecKillEnum.REPEAT);
         }
