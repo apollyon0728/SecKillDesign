@@ -1,5 +1,3 @@
-package com.scut.seckill;
-
 import com.alibaba.fastjson.JSON;
 import com.scut.seckill.cache.RedisCacheHandle;
 import com.scut.seckill.common.SecKillEnum;
