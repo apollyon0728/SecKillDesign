@@ -1,22 +1,16 @@
-import com.alibaba.fastjson.JSON;
+import com.scut.seckill.SecKillApp;
 import com.scut.seckill.cache.RedisCacheHandle;
-import com.scut.seckill.common.SecKillEnum;
 import com.scut.seckill.constant.RedisCacheConst;
-import com.scut.seckill.entity.Record;
 import com.scut.seckill.entity.User;
 import com.scut.seckill.mapper.SecKillMapper;
-import com.scut.seckill.utils.SecKillUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Response;
 import redis.clients.jedis.Transaction;
-import sun.rmi.runtime.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = SecKillApp.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class JUnitTest {
 
     @Autowired

@@ -24,6 +24,9 @@ public class RedisLoaderListener {
     @Autowired
     private AtomicStock atomicStock;
 
+    /**
+     * 每次读取数据库初始化Redis的值
+     */
     @PostConstruct
     public void initRedis(){
         Jedis jedis = redisCacheHandle.getJedis();

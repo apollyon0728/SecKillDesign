@@ -18,16 +18,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
+import tool.RedisTool;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Service
 public class SecKillService {
-    private final static String USER_PREFIX = "user:";
+    private final static String USER_PREFIX = "USER:";
+    private static final String LOCK_KEY = "TEST_LOCK_KEY";
+    private static final String LOCK_KEY_VALUE = "TEST_LOCK_KEY_VALUE";
+    private static final String UUID_VALUE = UUID.randomUUID().toString();
 
     @Autowired
     private RedisCacheHandle redisCacheHandle;
@@ -268,15 +273,29 @@ public class SecKillService {
         }
     }
 
+    /**
+     * 在Redis缓存user序列化信息
+     * @param userId
+     * @param user
+     * @return
+     *
+     * @Author zd
+     */
     private boolean setUserObject(Integer userId, User user) {
         Jedis jedis = redisCacheHandle.getJedis();
         jedis.set((USER_PREFIX + userId).getBytes(), SerializeUtil.serialize(user));
         return Boolean.TRUE;
     }
 
-
+    /**
+     * 从Redis中读取User信息，没有的话进行缓存
+     * @param userId
+     * @return
+     */
     public User getUserObject(Integer userId) {
         Jedis jedis = redisCacheHandle.getJedis();
+        boolean isSuccess = RedisTool.tryGetDistributedLock(jedis, LOCK_KEY, UUID_VALUE, 30);
+        log.info(">>>>>>>>>> getUserObject redisLockTest 加锁是否成功， isSuccess : {}", isSuccess);
         byte[] person = jedis.get((USER_PREFIX + userId).getBytes());
         if (person == null || person.length <= 0) {
             User user = secKillMapper.getUserById(userId);
