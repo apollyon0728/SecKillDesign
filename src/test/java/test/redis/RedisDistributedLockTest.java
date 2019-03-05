@@ -1,3 +1,5 @@
+package test.redis;
+
 import com.scut.seckill.SecKillApp;
 import com.scut.seckill.cache.RedisCacheHandle;
 import lombok.extern.slf4j.Slf4j;

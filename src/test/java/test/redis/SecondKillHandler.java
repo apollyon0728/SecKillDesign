@@ -1,3 +1,5 @@
+package test.redis;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.Jedis;
